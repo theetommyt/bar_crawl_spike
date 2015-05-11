@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>racks ajax</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h3> Enter Destination: </h3>
+
+      address search box -->
+       <div>
+      <input id="address" type="textbox" value="Chicago, IL">
+      <input type="button" value="Bar hop" onclick="codeAddress()">
+      </div>
+
+      <div id="map" style="width: 500px; height: 400px;"></div>
+
+    </div>
+    <div id = "coords">
+    </div>
+
+    <script type="text/javascript">
+
+      var defaultCenter = new google.maps.LatLng(41.893974, -87.627945);
+      var defaultOptions = {
+        zoom: 14,
+        center: defaultCenter,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+
+      var map = new google.maps.Map(document.getElementById('map'), defaultOptions);
+
+      var infowindow = new google.maps.InfoWindow();
+
+      var map = new google.maps.Map(document.getElementById('map'), defaultOptions);
+
+      var infowindow = new google.maps.InfoWindow();
+
+      var map = new google.maps.Map(document.getElementById('map'), defaultOptions);
+
+      var infowindow = new google.maps.InfoWindow();
+
+      // ***USE THIS IF YOU WANT TO ENABLE THE USER TO TYPE IN THEIR ADDRESS AND CENTER THE MAP ON IT***
+      var geocoder = new google.maps.Geocoder();
+
+      function codeAddress() {
+        var address = document.getElementById("address").value;
+        geocoder.geocode( { 'address': address}, function(results, status) {
+          console.log(results[0].geometry.location);
+          if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            map.setZoom(16);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+          } else {
+            alert("Geocode was not successful for the following reason: " + status);
+          }
+        });
+      }
+
+
+
+  // ***USE THIS IF YOU WANT TO ENABLE THE USER TO TYPE IN THEIR ADDRESS AND CENTER THE MAP ON IT***
+        var geocoder = new google.maps.Geocoder();
+
+        function codeAddress() {
+          var address = document.getElementById("address").value;
+          geocoder.geocode( { 'address': address}, function(results, status) {
+            console.log(results[0].geometry.location);
+            if (status == google.maps.GeocoderStatus.OK) {
+              map.setCenter(results[0].geometry.location);
+              map.setZoom(16);
+              var marker = new google.maps.Marker({
+                  map: map,
+                  position: results[0].geometry.location
+              });
+            } else {
+              alert("Geocode was not successful for the following reason: " + status);
+            }
+          });
+        }
+
+
+        // **THIS API GETS BARS FROM CHICAGO CITY DATA***
+              var locations = [];
+
+              $.ajax({
+              method: 'get',
+              url: "https://data.cityofchicago.org/resource/xqx5-8hwx?$$app_token=mI42hhQXIVVYh5Y7jjmZtCnh6",
+              dataType: 'json',
+              data: {
+                "license_description": "Tavern"
+              }})
+              .done(function(data){
+
+                console.log(data.length)
+                for(var i=0; i<data.length; i++){
+                  locations.push(data[i]);
+                };
+                console.log(data);
+
+                function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+                  var R = 6371; // Radius of the earth in km
+                  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+                  var dLon = deg2rad(lon2-lon1);
+                  var a =
+                    Math.sin(dLat/2) * Math.sin(dLat/2) +
+                    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                    Math.sin(dLon/2) * Math.sin(dLon/2)
+                    ;
+                  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                  var d = R * c; // Distance in km
+                  return d*.621371;
+                }
+
+                 function deg2rad(deg) {
+                   return deg * (Math.PI/180)
+                 }
+
+
+                // for (var i = 0; i < locations.length; i++) {
+                //   for (var j = 0; j < locations.length; j++) {
+
+                var distances = [];
+
+                for (var i = 0; i < 10; i++) {
+                  for (var j = 0; j < 10; j++) {
+                    console.log(j)
+                    var distance = getDistanceFromLatLonInKm(locations[i].latitude,locations[i].longitude,locations[j].latitude,locations[j].longitude);
+                    var html = $('<li>').text(locations[i].address + " to " + locations[j].address + " "+ distance + " miles...");
+                    $('#coords').append(html);
+                    distances.push({
+                      start: locations[i],
+                      end: locations[j],
+                      distance: distance
+                    })
+                  }
+                }
+
+
+                function compare(a, b) {
+                  if (a.distance < b.distance) {
+                    return -1;
+                  }
+                  if (a.distance > b.distance) {
+                    return 1;
+                  }
+                  return 0;
+                }
+
+                var sorted = distances.sort(compare)
+
+                console.log(sorted)
+
+              });
+
+
+
+
+    </script>
+
+
+  </body>
+</html>
