@@ -19,8 +19,8 @@ CSV.foreach(filename, :headers=>true) do |csv_obj|
     state: csv_obj['STATE'],
     zip: csv_obj['ZIP CODE'],
     license: csv_obj['LICENSE DESCRIPTION'],
-    lat: csv_obj['LATITUDE'],
-    long: csv_obj['LONGITUDE'],
+    lat: csv_obj['LATITUDE'].to_f,
+    long: csv_obj['LONGITUDE'].to_f,
     loc: csv_obj['LOCATION']
     })
 end

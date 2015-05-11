@@ -17,6 +17,15 @@ ActiveRecord::Schema.define(version: 20150511204524) do
   enable_extension "plpgsql"
 
   create_table "bars", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zip"
+    t.string   "license"
+    t.float    "lat"
+    t.float    "long"
+    t.float    "loc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
