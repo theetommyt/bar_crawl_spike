@@ -1,0 +1,11 @@
+<h3>Drinkers</h3>
+
+<ul>
+  <% @drinkers.each do |drinker| %>
+    <li>
+      <%= drinker.name %>
+      <br>
+      <%= drinker.message %>
+    </li>
+  <% end %>
+</ul>

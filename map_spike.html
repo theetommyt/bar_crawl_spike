@@ -83,7 +83,7 @@
 
           google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
-              infowindow.setContent(locations[i].doing_business_as_name + " "+ locations[i].address);
+              infowindow.setContent("Stop #" +locations[i].doing_business_as_name + " "+ locations[i].address);
 
               infowindow.open(map, marker);
               // alert(locations[i].doing_business_as_name)
