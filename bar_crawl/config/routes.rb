@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   resources :drinkers
 
+  resources :bars
+
   get 'drinkers/index'
 
   get 'drinkers/new'
