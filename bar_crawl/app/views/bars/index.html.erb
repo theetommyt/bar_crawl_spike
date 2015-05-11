@@ -6,7 +6,10 @@
   <% @bars.each do |bar| %>
     <tr>
       <td>
-        <%= bar.name %>
+        <%="Name: "+ bar.name %>
+        <%="Address: "+ bar.address %>
+        <%="latitude: "+ bar.lat.to_s %>
+        <%="longitude: "+ bar.long.to_s %>
       </td>
     </tr>
   <% end %>

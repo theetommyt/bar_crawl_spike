@@ -18,5 +18,18 @@ def haversine(lat1, long1, lat2, long2)
 end
 
 def power(num, pow)
-num ** pow
+  num ** pow
 end
+
+
+arr = Bar.all
+
+arr.map { |a|
+  arr.map { |b|
+    {
+      start_bar: a,
+      end_bar: b,
+      distance: haversine(a.lat, a.long, b.lat, b.long)
+    }
+  }
+}
