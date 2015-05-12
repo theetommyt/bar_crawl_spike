@@ -12,14 +12,14 @@ class BarsController < ApplicationController
   end
 
   def closest_bars
-    bars = Bar.search_bars(params['lat'].to_f, params['long'].to_f, 3)
+    bars = Bar.search_bars(params['lat'].to_f, params['long'].to_f, params['num_stops'].to_i)
     render json: bars
   end
 
   def bar_crawl
     lat = 41.8907686 # params[:lat].to_f
     long = -87.62671089999999 # params[:long].to_f
-    num_stops = (params[:num_stops] || 3).to_i
+    num_stops = (params[:num_stops] || 5).to_i
     bars = Bar.crawl(lat, long, num_stops)
 
     render json: bars
@@ -28,6 +28,11 @@ class BarsController < ApplicationController
 
   def index
     @bars = Bar.all
+  end
+
+  def api
+    @bars = Bar.all
+    render json: @bars
   end
 
   def show
