@@ -1,0 +1,33 @@
+
+
+
+<h1 id='headline'>Hi</h1>
+
+<h2 id='position'></h2>
+
+
+
+
+<script type="text/javascript">
+
+  var latitude, longitude;
+
+  navigator.geolocation.watchPosition(function(position) {
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+    var html = "Lat: " + latitude + "    Long: " + longitude;
+    $('#position').html(html);
+
+
+    $.ajax({
+      url: '/closest_bar',
+      data: {lat: latitude, long: longitude},
+      method: 'get',
+      success:function(data){
+        $('#headline').text("You are near... " + data.name + '.  Grab a drink?')
+      }
+    })
+
+  })
+
+</script>

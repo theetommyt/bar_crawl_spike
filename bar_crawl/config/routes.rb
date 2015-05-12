@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
   resources :bars
 
+  get '/closest_bar' => 'bars#closest_bar'
+  root 'bars#welcome'
+
+
   # get 'drinkers/index'
   #
   # get 'drinkers/new'
