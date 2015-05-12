@@ -24,14 +24,10 @@
       data: {lat: latitude, long: longitude},
       method: 'get',
       success:function(data){
-        $('#headline').text("You are near... " + data.name + '.  Grab a drink?')
+        $('#headline').text("You are near... " + data.name + '.  Grab a drink? You like drinks.')
       }
     })
 
   })
 
 </script>
-
-<div>
-<%= Bar.all%>
-</div>
