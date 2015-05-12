@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <script>
+    document.querySelector("p").addEventListener("mousemove", onMouseMove);
+document.querySelector("p").addEventListener("touchmove", onMouseMove);
+
+function onMouseMove(e) {
+  var cx = window.innerWidth >> 1;
+  var cy = window.innerHeight >> 1;
+  var dx = e.pageX - cx;
+  var dy = e.pageY - cy;
+  var px = dx / cx;
+  var py = dy / cy;
+  var sx = px > 0 ? 1 : -1;
+  var sy = py > 0 ? 1 : -1;
+  var p = document.querySelector("#pointer");
+  //p.style.transform = "translate("+(cx + (1.5*dx))+"px,"+(cy + (1.5*dy))+")"
+  p.style.left = (cx + (sx * px * px * cx)) + "px";
+  p.style.top = (cy + (sy * py * py * cy)) + "px";
+}
+</script>
+    <title></title>
+    <style>
+    body, html {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  cursor: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #f3eedd;
+  align-items: center;
+  justify-content: center;
+}
+
+.main {
+  width: 80%;
+}
+
+h1 {
+  color: #422;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 3em;
+  text-align: center;
+}
+
+h2 {
+  margin-top: 1em;
+  color: #644;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+#pointer {
+  position: absolute;
+  width: 0.5;
+  height: 0.5;
+  transform: rotate(-21deg);
+  top: 0;
+  left: 0;
+}
+#pointer .head {
+  border-top: 2px solid transparent;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 12px solid black;
+}
+#pointer .tail {
+  width: 2px;
+  height: 5px;
+  background: black;
+  position: absolute;
+  top: 14px;
+  left: 4px;
+}
+p {
+  size: 24px;
+}
+</style>
+  </head>
+  <body>
+
+<div class="main">
+  <h1>ScrollJacking is InterfaceJacking</h1>
+  <h2>It's not OK to change scroll dynamics, the same way it's not OK to change mouse dynamics.</h2>
+</div>
+<div id="pointer">
+  <div class="tail"></div>
+  <div class="head"></div>
+</div>
+<p>
+  HOW DRUNK ARE YOUU?
+</p>
+  </body>
+</html>
