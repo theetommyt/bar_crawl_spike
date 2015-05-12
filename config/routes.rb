@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   resources :bars
 
-  get '/closest_bar' => 'bars#closest_bar'
+  get '/closest_bars' => 'bars#closest_bars'
+  get '/bar_crawl' => 'bars#bar_crawl'
   root 'bars#welcome'
 
 
