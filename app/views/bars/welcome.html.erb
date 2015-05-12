@@ -3,8 +3,11 @@
 
 <h1 id='headline'>Hi internet and non-internet friends</h1>
 
-<h2 id='position'></h2>
+<h2>How many bars would you like to crawl to?</h2>
+<input type="number" placeholder="3" value=3>
+<input type="submit" value="Let's Drink">
 
+<h2 id='position'></h2>
 
 
 
@@ -18,10 +21,12 @@
     var html = "Lat: " + latitude + "    Long: " + longitude;
     $('#position').html(html);
 
+}
+    var numField = || 3;
 
     $.ajax({
       url: '/closest_bar',
-      data: {lat: latitude, long: longitude},
+      data: {lat: latitude, long: longitude, num_bars: },
       method: 'get',
       success:function(data){
         console.log(data)

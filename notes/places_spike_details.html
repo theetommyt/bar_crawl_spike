@@ -21,21 +21,21 @@ var active = active || {};
 active.markers = [];
 
 function initialize() {
-  var current = new google.maps.LatLng(41.8905500,-87.6268470);
+  var chicago = new google.maps.LatLng(41.8905500,-87.6268470);
 
   map = new google.maps.Map(document.getElementById('map-canvas'), {
-    center: current,
+    center: chicago,
     zoom: 15
   });
 
   var request = {
-    location: current,
-    radius: 250,
+    location: chicago,
+    radius: 500,
     types: ['bar', 'pub', 'tavern','bars']
   };
   infowindow = new google.maps.InfoWindow();
   var service = new google.maps.places.PlacesService(map);
-  service.nearbySearch(request, callback);
+  service.getNearby(request, callback);
 }
 
 function callback(results, status) {
@@ -61,12 +61,12 @@ function createMarker(place) {
     infowindow.setContent(place.name);
     infowindow.open(map, this);
     //want to add place info but refresh when another bar is clicked
-    $('#bar_list').append(place.name);
+    $('#bar_list').append(place.name, place.);
     console.log("hi")
   });
 
   google.maps.event.addListener(marker, 'dblclick', function() {
-    $('#crawl_list').append(place.name);
+    $('#crawl_list').append(place.form);
 
     console.log("insert code to add info below to div");
     scopeHelper(marker);
@@ -86,13 +86,13 @@ function scopeHelper(scopeObj) {
     <div id="map-canvas" style="width: 90%; height: 500px; margin-top: 20px; margin-left: 5%; margin-right: 5%;"></div>
     <div id="list" style="width: 90%; margin: 0 auto;"></div>
 
-    <h1>About Bar</h1> 
+    <h1>About Bar</h1>
     <div id="bar_list">
     </div>
 
     <h1>Current Crawl</h1>
-    <div id="crawl_list">
-    </div>
+    <ul id="crawl_list">
+    </ul>
 
   </body>
 </html>
