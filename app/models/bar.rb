@@ -7,24 +7,6 @@ class Bar < ActiveRecord::Base
   #  self.bar_distances.order(:distance).slice(0..(num_bars-2))
   #end
 
-  def self.crawl(lat, long, num_stops)
-     bars = num_stops.times.map do |i|
-       bar = Bar.search_bars(lat, long, 5)[i]
-      #  bar2 = Bar.search_bars(lat, long, 5)[1]
-      # bar3 = Bar.search_bars(lat, long, 5)[2]
-
-        lat = bar.lat
-        long = bar.long
-      #  if lat = lat
-      #
-      #   bar2 = Bar.search_bars(lat, long, 5)[1]
-      #  end
-      bar
-
-     end
-  end
-
-
 
 
   def self.search_bars(lat, long, num_bars=1)

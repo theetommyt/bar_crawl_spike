@@ -19,7 +19,7 @@ class BarsController < ApplicationController
   def bar_crawl
     lat = 41.8907686 # params[:lat].to_f
     long = -87.62671089999999 # params[:long].to_f
-    num_stops = (params[:num_stops] || 5).to_i
+    num_stops = (params[:num_stops] || 15).to_i
     bars = Bar.crawl(lat, long, num_stops)
 
     render json: bars
