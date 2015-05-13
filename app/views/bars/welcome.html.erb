@@ -5,6 +5,11 @@
 
 <h2 id='position'></h2>
 
+<%= form_tag("/closest_bars", method: "get") do %>
+  <%= label_tag(:num_stops, "How many bars you finna hit?") %>
+  <%= text_field_tag(:num_stops) %>
+  <%= submit_tag("Search") %>
+<% end %>
 
 
 
@@ -19,9 +24,13 @@
     $('#position').html(html);
 
 
+  $('form').submit(function(event){
+    event.preventDefault();
+    number = $("#num_stops").val();
+
     $.ajax({
       url: '/closest_bars',
-      data: {lat: latitude, long: longitude, num_stops: 10},
+      data: {lat: latitude, long: longitude, num_stops: number },
       method: 'post',
       success:function(bars){
         console.log(bars)
@@ -32,6 +41,7 @@
 
       }
     })
+  })
 
   })
 
