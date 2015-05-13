@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get '/closest_bar' => 'bars#closest_bar'
   root 'bars#welcome'
+  
 
 
   # get 'drinkers/index'
