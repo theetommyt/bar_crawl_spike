@@ -27,14 +27,14 @@
     number = $("#num_stops").val();
 
     $.ajax({
-      url: '/closest_bars',
+      url: '/bar_crawl',
       data: {lat: latitude, long: longitude, num_stops: number },
       method: 'post',
-      success:function(bars){
-        console.log(bars)
+      success:function(crawl){
+        console.log(crawl)
 
-        for (var i = 0; i < bars.length; i++) {
-          $('#headline').append(" You are near " + bars[i].name + " and ");
+        for (var i = 0; i < crawl.length; i++) {
+          $('#headline').append(" You are near " + crawl[i].name + " and ");
         }
 
       }
