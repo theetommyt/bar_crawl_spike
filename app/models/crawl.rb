@@ -20,7 +20,6 @@ class Crawl < ActiveRecord::Base
 
 
   def self.choose_own_disaster(crawl, num_stops)
-
     if crawl.bars.length < num_stops
       # Set up the two crawl options
       left_crawl = crawl # One choice
@@ -29,19 +28,12 @@ class Crawl < ActiveRecord::Base
         name: left_crawl.name
       }) # Second choice
 
-      last_bar = Bar.find(left_crawl.bars.last)
+      last_bar = Bar.find(crawl.bars.last)
       bar_options = Bar.search_bars(last_bar.lat, last_bar.long, 15)
+      bar_options.reject!{|bar| crawl.bars.include?(bar.id) }
 
-      cleaned_bar_options = []
-      in_crawl_ids = left_crawl.bars
-      bar_options.each do |bar|
-        unless in_crawl_ids.include?(bar.id)
-          cleaned_bar_options.push(bar)
-        end
-      end
-
-      left_crawl.add_bar!(cleaned_bar_options[0])
-      right_crawl.add_bar!(cleaned_bar_options[1])
+      left_crawl.add_bar!(bar_options[0])
+      right_crawl.add_bar!(bar_options[1])
       self.choose_own_disaster(left_crawl, num_stops)
       self.choose_own_disaster(right_crawl, num_stops)
     end
@@ -55,6 +47,10 @@ class Crawl < ActiveRecord::Base
     self.where(name: name)
   end
 
-  # Crawl.brackets('Joeys', 41.88990488, -87.63122455, 3)
+  # Crawl.brackets(Faker::Name.name, 41.88990488, -87.63122455, 3)
+
+  def collect_bars
+    self.bars.map{|bar_id| Bar.find(bar_id) }
+  end
 
 end
