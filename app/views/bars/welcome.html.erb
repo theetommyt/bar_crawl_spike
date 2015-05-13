@@ -25,12 +25,17 @@
     var numField = || 3;
 
     $.ajax({
+
       url: '/closest_bar',
       data: {lat: latitude, long: longitude, num_bars: },
       method: 'get',
-      success:function(data){
-        console.log(data)
-        $('#headline').text("You are near... " + data.bar.name + '.  Grab a drink? You like drinks.')
+      success:function(bars){
+        console.log(bars)
+
+        for (var i = 0; i < bars.length; i++) {
+          $('#headline').append("You are near... " + bars[i].name);
+        }
+
       }
     })
 
