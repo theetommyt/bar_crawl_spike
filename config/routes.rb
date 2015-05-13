@@ -4,8 +4,11 @@ Rails.application.routes.draw do
 
   resources :bars
 
-  get '/closest_bars' => 'bars#closest_bars'
+  # requestType '/pathToMap' => 'controller#controllerMethod'
+  post '/closest_bars' => 'bars#closest_bars'
   get '/bar_crawl' => 'bars#bar_crawl'
+  get '/drunk' => 'drinkers#index'
+  get '/bar-api' => 'bars#api'
   root 'bars#welcome'
 
 
