@@ -3,13 +3,19 @@
 
 <h1 id='headline'>Hi internet and non-internet friends.</h1>
 
-<h2 id='position'></h2>
+<h2>How many bars would you like to crawl to?</h2>
+<input type="number" placeholder="3" value=3>
+<input type="submit" value="Let's Drink">
+
 
 <%= form_tag("/closest_bars", method: "get") do %>
   <%= label_tag(:num_stops, "How many bars you finna hit?") %>
   <%= text_field_tag(:num_stops) %>
   <%= submit_tag("Search") %>
 <% end %>
+
+<h2 id='position'></h2>
+
 
 
 
@@ -23,6 +29,8 @@
     var html = "Lat: " + latitude + "    Long: " + longitude;
     $('#position').html(html);
 
+}
+    var numField = || 3;
 
   $('form').submit(function(event){
     event.preventDefault();
