@@ -33,12 +33,17 @@ app.getBarsAndRender = function(lat, long) {
           var bar_name = data.bracket[i][j].name
           var h3 = $('<span>').addClass('bar').text(bar_name);
           $(h3).on('click', function(event) {
-            $('#crawl_list').append(bar_name);
-            $(this).css("background", "red");
+            $(this).toggleClass("yesBar");
           });
-          $(h3).on('dblclick', function(event) {
-            (this).css("background", "blue");
-          });
+
+          (function(){
+            var local_h3 = h3; 
+            var local_bar_name = bar_name;
+            $(local_h3).dblclick( function(event){
+              $('#crawl_list').append(local_bar_name);
+            });
+          })();
+
           row.append(h3);
 
         }
