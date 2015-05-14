@@ -2,7 +2,7 @@
 
 <ul id='headline'><h1>Where are you starting the Choose your own Disaster Bar Crawl?</h1></ul>
 <button type="button" id="getLocation">We're finna start here</button>
-<input id="location_search" placeholder="enter address with zip code"><button id="location_search">Start my search here!</button>
+<input id="location_search" placeholder="enter address with zip code"><button id="location_searchBtn">Start my search here!</button>
 <h2 id='position'></h2>
 <div id="bracket"></div>
 <div id="crawl_list"></div>
@@ -63,7 +63,7 @@ $("#getLocation").click(function() {
 
 });
 
-$("#location_search").click(function() {
+$("#location_searchBtn").click(function() {
 
   var location = $('#location_search').val();
 
@@ -71,12 +71,9 @@ $("#location_search").click(function() {
     url: '/geolocation_getter',
     dataType: "json",
     method: 'post',
-    data: { location: location.toString() },
+    data: { location: location },
     success:function(data){
-    	console.log(data);
-      // use the yelp ajax call to get lat/long
-      // inside of the success, now you will call...
-      // app.getBarsAndRender(latitude, longitude);
+      app.getBarsAndRender(data.latitude, data.longitude);
     },
     error: function(err) {
     	console.log(err);
