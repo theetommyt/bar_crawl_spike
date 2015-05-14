@@ -88,3 +88,35 @@ $("#location_searchBtn").click(function() {
 
 
 </script>
+
+<!-- ******************
+DrunkChat -->
+
+<html>
+  <head>
+    <title>DrunkChat</title>
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+  </head>
+  <body>
+
+    <h1>Wanna DrunkChat? No Ragrets! Yolo, Yo.</h1>
+
+    <h2>First time, Drinker? Sign up!</h2>
+    <!-- form for sign-up: to make a new drinker -->
+    <form action="/drinkers" method='post'>
+      <input type="text" name='drinker[drinkername]' placeholder='...drinkername'>
+      <input type="password" name='!password' placeholder='...password'>
+      <input type="submit" value='Sign-Up'>
+    </form>
+
+    <h3>Veteran Drinker? Sign in!</h3>
+    <!-- form for sign-in: to make a new session -->
+    <form action="/sessions" method='post'>
+      <input type="text" name='drinkername' placeholder='...drinkername'>
+      <input type="password" name='password' placeholder='...password'>
+      <input type="submit" value='Sign-In'>
+    </form>
+
+
+  </body>
+</html>

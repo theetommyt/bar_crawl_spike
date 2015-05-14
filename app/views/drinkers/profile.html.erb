@@ -1,0 +1,9 @@
+<h3>Welcome back, <%= @drinker.drinkername %>!</h3>
+
+<%= form_tag('/log_out', method: :delete) do %>
+  <%= submit_tag "Log-Out " %>
+<% end %>
+
+<p>
+  You're signed in, Drinker!
+</p>

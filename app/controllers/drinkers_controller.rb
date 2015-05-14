@@ -30,6 +30,15 @@ class DrinkersController < ApplicationController
     redirect_to "/drinkers"
   end
 
+  def profile
+    authenticate!
+    @drinker = current_user
+  end
+
+  def sign_in
+    # render sign-in form here
+  end
+
   private
 
   def drinker_params

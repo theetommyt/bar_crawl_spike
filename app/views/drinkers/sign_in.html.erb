@@ -1,0 +1,10 @@
+
+<h3>Sign-In, Drinker!</h3>
+
+<%= form_tag('/log_in', method: :post) do %>
+  <%= label_tag :drinkername %>
+  <%= text_field_tag :drinkername %>
+  <%= label_tag :password %>
+  <%= password_field_tag :password %>
+  <%= submit_tag %>
+<% end %>
