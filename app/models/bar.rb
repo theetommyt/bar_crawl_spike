@@ -68,7 +68,7 @@ class Bar < ActiveRecord::Base
   # end
 #######################################
 #matt
-  def user_location
+  def self.user_location
     data[:lat] = lat
     data[:long] = long
     return data.to_json
