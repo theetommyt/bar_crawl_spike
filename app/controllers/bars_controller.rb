@@ -4,8 +4,7 @@ class BarsController < ApplicationController
   #   num ** pow
   # end
   #
-
-
+################################
 
   def bar_crawl
 

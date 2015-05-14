@@ -8,9 +8,10 @@ Rails.application.routes.draw do
   post '/closest_bars' => 'bars#closest_bars'
   get '/bar_crawl' => 'bars#bar_crawl'
   post '/bar_crawl' => 'bars#bar_crawl'
+  post '/geolocation_getter' => 'yelp#api'
   get '/drunk' => 'drinkers#index'
   get '/bar-api' => 'bars#api'
-  post '/user_location' => 'bars#user_location'
+  #post '/user_location' => 'bars#user_location'
   root 'bars#welcome'
 
   # get 'drinkers/index'
