@@ -2,6 +2,7 @@
 
 <ul id='headline'><h1>Where are you starting the Choose your own Disaster Bar Crawl?</h1></ul>
 <button type="button" id="getLocation">We're finna start here</button>
+<input id="location_search" placeholder="enter address with zip code"><button id="location_search">Start my search here!</button>
 <h2 id='position'></h2>
 <div id="bracket"></div>
 <div id="crawl_list"></div>
@@ -16,8 +17,38 @@
 
 
 <script type="text/javascript">
-$("#getLocation").click(function() {
+var app = app || {};
 
+app.getBarsAndRender = function(lat, long) {
+  $.ajax({
+    url: '/bar_crawl',
+    dataType: "json",
+    method: 'post',
+    data: { lat: lat, long: long},
+    success:function(data){
+      $('.bar_row').empty();
+      for (var i = 0; i < data.bracket.length; i++) {
+        var row = $('<div>').addClass('bar-row')
+        for (var j = 0; j < data.bracket[i].length; j++) {
+          var bar_name = data.bracket[i][j].name
+          var h3 = $('<span>').addClass('bar').text(bar_name);
+          $(h3).on('click', function(event) {
+            $('#crawl_list').append(bar_name);
+            $(this).css("background", "red");
+          });
+          $(h3).on('dblclick', function(event) {
+            (this).css("background", "blue");
+          });
+          row.append(h3);
+
+        }
+        $('#bracket').append(row);
+      }
+    }
+  });
+}
+
+$("#getLocation").click(function() {
 
   var latitude, longitude;
   navigator.geolocation.watchPosition(function(position) {
@@ -25,35 +56,38 @@ $("#getLocation").click(function() {
     longitude = position.coords.longitude;
     var html = "Your Current Location is Lat: " + latitude + "    Long: " + longitude;
     $('#position').html(html);
+    app.getBarsAndRender(latitude, longitude);
 
-    $.ajax({
-      url: '/bar_crawl',
-      dataType: "json",
-      method: 'post',
-      data: { lat: latitude, long: longitude},
-      success:function(data){
-        $('.bar_row').empty();
-        for (var i = 0; i < data.bracket.length; i++) {
-          var row = $('<div>').addClass('bar-row')
-          for (var j = 0; j < data.bracket[i].length; j++) {
-            var bar_name = data.bracket[i][j].name
-            var h3 = $('<span>').addClass('bar').text(bar_name);
-            $(h3).on('click', function(event) {
-              $('#crawl_list').append(bar_name);
-              $(this).css("background", "red");
-            });
-            $(h3).on('dblclick', function(event) {
-              (this).css("background", "blue");
-            });
-            row.append(h3);
 
-          }
-          $('#bracket').append(row);
-        }
-      }
-    });
+  });
 
 });
 
+$("#location_search").click(function() {
+
+  var location = $('#location_search').val();
+
+  $.ajax({
+    url: '/geolocation_getter',
+    dataType: "json",
+    method: 'post',
+    data: { location: location.toString() },
+    success:function(data){
+    	console.log(data);
+      // use the yelp ajax call to get lat/long
+      // inside of the success, now you will call...
+      // app.getBarsAndRender(latitude, longitude);
+    },
+    error: function(err) {
+    	console.log(err);
+    }
 });
+
+
+
+});
+
+
+
+
 </script>
