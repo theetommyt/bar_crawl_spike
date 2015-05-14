@@ -18,7 +18,8 @@
 .bar{
   border: 1px solid red;
   padding: 1em;
-  background-color: lightyellow;
+  background-color: blue;
+  color: white;
   text-align: center;
   margin: 0 auto;
 

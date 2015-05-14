@@ -1,8 +1,10 @@
 
 
-<ul id='headline'>Hi internet and non-internet friends.</ul>
-
+<ul id='headline'><h1>Where are you starting the Choose your own Disaster Bar Crawl?</h1></ul>
+<button type="button" id="getLocation">We're finna start here</button>
 <h2 id='position'></h2>
+<div id="bracket"></div>
+<div id="crawl_list"></div>
 
 <!-- <%= form_tag("/bar_crawl", method: "get") do %>
   <%= label_tag(:num_stops, "How many bars you finna hit?") %>
@@ -11,40 +13,18 @@
 <% end %> -->
 
 
+
+
 <script type="text/javascript">
+$("#getLocation").click(function() {
+
 
   var latitude, longitude;
-
   navigator.geolocation.watchPosition(function(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
-    var html = "Lat: " + latitude + "    Long: " + longitude;
+    var html = "Your Current Location is Lat: " + latitude + "    Long: " + longitude;
     $('#position').html(html);
-
-
-  // $('form').submit(function(event){
-  //   event.preventDefault();
-  //   number = $("#num_stops").val();
-
-    //
-    // $.ajax({
-    //   url: '/bar_crawl',
-    //   dataType: "json",
-    //   method: 'get',
-    //
-    //   success:function(data){
-    //      console.log(data)
-    //
-    //     /*for (var i = 0; i < data.bracket.length; i++) {
-    //       var row = $('<div>').addClass('bar-row')
-    //       for (var j = 0; j < data.bracket[i].length; j++) {
-    //         var h3 = $('<span>').addClass('bar').text(data.bracket[i][j].name);
-    //         row.append(h3);
-    //       }
-    //       $('body').append(row);
-    //     }*/
-    //   }
-    // });
 
     $.ajax({
       url: '/bar_crawl',
@@ -52,53 +32,28 @@
       method: 'post',
       data: { lat: latitude, long: longitude},
       success:function(data){
-
+        $('.bar_row').empty();
         for (var i = 0; i < data.bracket.length; i++) {
           var row = $('<div>').addClass('bar-row')
           for (var j = 0; j < data.bracket[i].length; j++) {
-            var h3 = $('<span>').addClass('bar').text(data.bracket[i][j].name);
+            var bar_name = data.bracket[i][j].name
+            var h3 = $('<span>').addClass('bar').text(bar_name);
+            $(h3).on('click', function(event) {
+              $('#crawl_list').append(bar_name);
+              $(this).css("background", "red");
+            });
+            $(h3).on('dblclick', function(event) {
+              (this).css("background", "blue");
+            });
             row.append(h3);
+
           }
-          $('body').append(row);
+          $('#bracket').append(row);
         }
       }
     });
 
+});
 
-        // for (var i = 0; i < data.crawls.length; i++) {
-        //   //each crawl
-        //
-        //   for (var x = 0; x < data.crawls[i].length; x++) {
-        //     //console.log(data.crawls[i][x]);
-        //     console.log(data.crawls[i][x].address);
-        //     var li = $('<li>');
-        //     $(li).append(data.crawls[i][x].name);
-        //     $(li).append(" Address: "+data.crawls[i][x].address);
-        //     console.log($(li));
-        //     $('#headline').append($(li));
-        //     // city
-        //     // created_at: "2015-05-13T19:01:39.360Z"
-        //     // id: 2716
-        //     // lat: 41.89076289
-        //     // license: "Tavern"
-        //     // loc: 0
-        //     // long: -87.62754901
-        //     // name: "STAR OF SIAM"
-        //     // state: "IL"
-        //     // updated_at: "2015-05-13T19:01:39.360Z"
-        //     // zip: 60611
-        //   }
-        //   // $('li').append('<div>HI</div>')
-        // }
-
-
-
-
-    // $.get( "/bar_crawl", function( data ) {
-    //   dataType: "json",
-    //   $( "#headline" ).text( data );
-    //
-    // });
-})
-
+});
 </script>
