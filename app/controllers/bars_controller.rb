@@ -5,13 +5,33 @@ class BarsController < ApplicationController
   # end
   #
 
+
+
   def bar_crawl
-    lat = 41.8907686 # params[:lat].to_f
-    long = -87.62671089999999 # params[:long].to_f
+
+    lat = params[:lat].to_f
+    #lat = 41.8907686 #params[:lat].to_f
+    long = params[:long].to_f
+    #long = -87.62671089999999 #params[:long].to_f
+    num_bars = 4 #params[:num_bars].to_i
+
     name = Faker::Name.first_name + " will " + Faker::Hacker.verb + " the " + Faker::Hacker.noun
-    crawls = Crawl.brackets(name, lat, long, 3)
+    crawls = Crawl.brackets(name, lat, long, num_bars)
     bar_data = crawls.map{ |crawl| crawl.collect_bars }
-    render json: {crawls: bar_data, name: name}
+
+    rounds = bar_data[0].length.times.map do |idx|
+      bar_data.map {|crawl| crawl[idx] }
+    end
+
+    possible_crawls = (0...(rounds[0].length)).to_a
+
+    bracket = rounds.reverse.map do |round|
+      bars = possible_crawls.map{|idx| round[idx] }
+      possible_crawls.select!.each_with_index { |ele, i| i.even? }
+      bars
+    end.reverse
+
+    render json: {crawls: bar_data, bracket: bracket, name: name}
   end
 
 

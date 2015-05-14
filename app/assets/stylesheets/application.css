@@ -13,3 +13,19 @@
  *= require_tree .
  *= require_self
  */
+
+
+.bar{
+  border: 1px solid red;
+  padding: 1em;
+  background-color: lightyellow;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.bar-row{
+  border: 2px solid green;
+  padding: 1em;
+  background-color: lightblue;
+  width: 100%;
+}
