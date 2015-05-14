@@ -17,7 +17,7 @@ Yelp.client.configure do |config|
   config.token_secret = 'vVVuPh4XGPz_By5-3otyCUbaWwA'
 
 end
-Yelp.client.search('1600 pennsylvania avenue, dc')@hash[0][1]
+Yelp.client.search('1600 pennsylvania avenue, dc')
 
 
 # params = { term: 'tavern',
