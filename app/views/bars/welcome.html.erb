@@ -16,6 +16,7 @@
   var latitude, longitude;
 
   navigator.geolocation.watchPosition(function(position) {
+    $('#position').empty(); 
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
     var html = "Lat: " + latitude + "    Long: " + longitude;
