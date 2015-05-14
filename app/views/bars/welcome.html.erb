@@ -27,40 +27,72 @@
   //   event.preventDefault();
   //   number = $("#num_stops").val();
 
+    //
+    // $.ajax({
+    //   url: '/bar_crawl',
+    //   dataType: "json",
+    //   method: 'get',
+    //
+    //   success:function(data){
+    //      console.log(data)
+    //
+    //     /*for (var i = 0; i < data.bracket.length; i++) {
+    //       var row = $('<div>').addClass('bar-row')
+    //       for (var j = 0; j < data.bracket[i].length; j++) {
+    //         var h3 = $('<span>').addClass('bar').text(data.bracket[i][j].name);
+    //         row.append(h3);
+    //       }
+    //       $('body').append(row);
+    //     }*/
+    //   }
+    // });
+
     $.ajax({
       url: '/bar_crawl',
       dataType: "json",
-      method: 'get',
-
+      method: 'post',
+      data: { lat: latitude, long: longitude},
       success:function(data){
-         console.log(data)
 
-        for (var i = 0; i < data.crawls.length; i++) {
-          //each crawl
-
-          for (var x = 0; x < data.crawls[i].length; x++) {
-            //console.log(data.crawls[i][x]);
-            console.log(data.crawls[i][x].address);
-            var li = $('<li>');
-            $(li).text(data.crawls[i][x].name);
-            console.log($(li));
-            $('#headline').append($(li));
-            // city
-            // created_at: "2015-05-13T19:01:39.360Z"
-            // id: 2716
-            // lat: 41.89076289
-            // license: "Tavern"
-            // loc: 0
-            // long: -87.62754901
-            // name: "STAR OF SIAM"
-            // state: "IL"
-            // updated_at: "2015-05-13T19:01:39.360Z"
-            // zip: 60611
+        for (var i = 0; i < data.bracket.length; i++) {
+          var row = $('<div>').addClass('bar-row')
+          for (var j = 0; j < data.bracket[i].length; j++) {
+            var h3 = $('<span>').addClass('bar').text(data.bracket[i][j].name);
+            row.append(h3);
           }
+          $('body').append(row);
         }
-
       }
     });
+
+
+        // for (var i = 0; i < data.crawls.length; i++) {
+        //   //each crawl
+        //
+        //   for (var x = 0; x < data.crawls[i].length; x++) {
+        //     //console.log(data.crawls[i][x]);
+        //     console.log(data.crawls[i][x].address);
+        //     var li = $('<li>');
+        //     $(li).append(data.crawls[i][x].name);
+        //     $(li).append(" Address: "+data.crawls[i][x].address);
+        //     console.log($(li));
+        //     $('#headline').append($(li));
+        //     // city
+        //     // created_at: "2015-05-13T19:01:39.360Z"
+        //     // id: 2716
+        //     // lat: 41.89076289
+        //     // license: "Tavern"
+        //     // loc: 0
+        //     // long: -87.62754901
+        //     // name: "STAR OF SIAM"
+        //     // state: "IL"
+        //     // updated_at: "2015-05-13T19:01:39.360Z"
+        //     // zip: 60611
+        //   }
+        //   // $('li').append('<div>HI</div>')
+        // }
+
+
 
 
     // $.get( "/bar_crawl", function( data ) {

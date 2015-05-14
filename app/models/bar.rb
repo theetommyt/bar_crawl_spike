@@ -2,6 +2,8 @@ class Bar < ActiveRecord::Base
 
   has_many :bar_distances, foreign_key: :start_bar_id
 
+  validates_uniqueness_of :address
+  validates_uniqueness_of :name
 
   #def closest_bars(num_bars=1)
   #  self.bar_distances.order(:distance).slice(0..(num_bars-2))
@@ -64,7 +66,14 @@ class Bar < ActiveRecord::Base
   #
   #   return d
   # end
-
+#######################################
+#matt
+  def self.user_location
+    data[:lat] = lat
+    data[:long] = long
+    return data.to_json
+  end
+#####################################
   def self.closest_bar(lat, long)
 
     bars = Bar.all

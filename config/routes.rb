@@ -7,10 +7,11 @@ Rails.application.routes.draw do
   # requestType '/pathToMap' => 'controller#controllerMethod'
   post '/closest_bars' => 'bars#closest_bars'
   get '/bar_crawl' => 'bars#bar_crawl'
+  post '/bar_crawl' => 'bars#bar_crawl'
   get '/drunk' => 'drinkers#index'
   get '/bar-api' => 'bars#api'
+  post '/user_location' => 'bars#user_location'
   root 'bars#welcome'
-
 
   # get 'drinkers/index'
   #
