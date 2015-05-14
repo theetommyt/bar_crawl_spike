@@ -19,7 +19,11 @@
 
       <div id="map" style="width: 500px; height: 400px;"></div>
 
+      <!--      Find lat and long based on address     -->
+
     </div>
+
+    <!--       Add geolocation function as well, ask if want to geolocate?       -->
 
     <script type="text/javascript">
 
@@ -55,28 +59,7 @@
       }
 
 
-// **THIS API GETS BARS FROM CHICAGO CITY DATA***
-      var locations = [];
-
-      $.ajax({
-      method: 'get',
-      url: 'https://data.cityofchicago.org/resource/xqx5-8hwx?$$app_token=mI42hhQXIVVYh5Y7jjmZtCnh6',
-      dataType: 'json',
-      data: {
-        "license_description": "Tavern" && "Late Hour"
-      }
-      })
-      .done(function(data){
-        console.log(data.length)
-        for(var i=0; i<data.length; i++){
-          locations.push(data[i]);
-        };
-        console.log(data);
-        var marker;
-        for (var i = 0; i < locations.length; i++) {
-          marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i].latitude, locations[i].longitude),
-            map: map
+// ************Add our bar crawl function that populates this map
 
 
           });
@@ -86,12 +69,16 @@
               infowindow.setContent("Stop #" +locations[i].doing_business_as_name + " "+ locations[i].address);
 
               infowindow.open(map, marker);
-              // alert(locations[i].doing_business_as_name)
             }
           })(marker, i));
 
         };
     });
+
+
+////// FIND A WAY TO USE ROUTING BASED ON BAR CRAWL LIST WITH DIRECTIONS API
+
+
 
   </script>
   </body>
