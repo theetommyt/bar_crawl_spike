@@ -9,8 +9,6 @@ class Bar < ActiveRecord::Base
   #  self.bar_distances.order(:distance).slice(0..(num_bars-2))
   #end
 
-
-
   def self.search_bars(lat, long, num_bars=1)
     dtor = Math::PI/180
     r = 3959
